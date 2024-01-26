@@ -2,6 +2,7 @@ package game2048;
 
 import java.util.Formatter;
 import java.util.Observable;
+import java.util.TreeSet;
 
 
 /** The state of a game of 2048.
@@ -113,13 +114,54 @@ public class Model extends Observable {
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
+        board.setViewingPerspective(side);
+
+        for(int x = 0; x < board.size(); x++){
+            TreeSet<Integer> empty = new TreeSet<Integer>();
+            Tile last;
+            int lastPos = -1;
+            for(int y = board.size()-1; y >= 0; y--){
+                Tile t = board.tile(x, y);
+                last = (lastPos != -1) ? board.tile(x, lastPos) : null;
+
+                if (t == null) {
+                    empty.add(y);
+                } else {
+                    int s1 = -1, s2 = -1;
+                    // find last position
+                    if (last != null && t.value() == last.value()){
+                        s1 = lastPos;
+                    } else {
+                        lastPos = y;
+                    }
+                    // find empty position
+                    if (!empty.isEmpty()){
+                        s2 = empty.last();
+                    }
+                    int pos = Math.max(s1, s2);
+                    if (pos >= 0) {
+                        changed = true;
+                        empty.add(y);
+                        if (!board.move(x, pos, t)) {
+                            empty.remove(pos) ;
+                            lastPos = pos;
+                        } else {
+                            this.score+= t.value() * 2;
+                            lastPos = -1;
+                        }
+                    }
+                }
+            }
+        }
 
         checkGameOver();
         if (changed) {
             setChanged();
         }
+        board.setViewingPerspective(Side.NORTH);
         return changed;
     }
+
 
     /** Checks if the game is over and sets the gameOver variable
      *  appropriately.
@@ -134,10 +176,16 @@ public class Model extends Observable {
     }
 
     /** Returns true if at least one space on the Board is empty.
-     *  Empty spaces are stored as null.
+     *  Empty spaces are stored as null
      * */
     public static boolean emptySpaceExists(Board b) {
-        // TODO: Fill in this function.
+        for(int i = 0; i < b.size(); i++) {
+            for(int j = 0; j < b.size(); j++){
+                if (b.tile(i, j) == null){
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -147,7 +195,15 @@ public class Model extends Observable {
      * given a Tile object t, we get its value with t.value().
      */
     public static boolean maxTileExists(Board b) {
-        // TODO: Fill in this function.
+        Tile t = null;
+        for(int i = 0; i < b.size(); i++) {
+            for(int j = 0; j < b.size(); j++){
+                t = b.tile(i,j);
+                if (t != null && t.value() == MAX_PIECE){;
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -158,7 +214,25 @@ public class Model extends Observable {
      * 2. There are two adjacent tiles with the same value.
      */
     public static boolean atLeastOneMoveExists(Board b) {
-        // TODO: Fill in this function.
+        int last1, last2;
+        Tile t1 = null, t2 = null;
+        for(int i = 0; i < b.size(); i++){
+            last1 = -1;
+            last2 = -1;
+            for(int j = 0; j < b.size(); j++){
+                t1 = b.tile(i,j);
+                t2 = b.tile(j,i);
+                if(t1 == null || t1.value() == last1){
+                    return true;
+                }
+                last1 = t1.value();
+                if(t2 == null || t2.value() == last2){
+                    return true;
+                }
+                last2 = t2.value();
+            }
+        }
+
         return false;
     }
 
