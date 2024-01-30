@@ -84,4 +84,21 @@ public class ArrayDeque<T> {
         return (T) array[(first + index) % capacity];
     }
 
+    public boolean equal(ArrayDeque<T> other) {
+        if(other.size() != size()) {
+            return false;
+        }
+        for(int i = 0; i < size; i++) {
+            if(!get(i).equals(other.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // TODO
+    public java.util.Iterator<T> iterator() {
+        return null;
+    }
+
 }

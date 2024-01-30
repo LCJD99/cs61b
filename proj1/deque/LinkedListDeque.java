@@ -4,7 +4,7 @@ public class LinkedListDeque<T> {
     private int size;
     private Node<T> root;
 
-    public class Node<T> {
+    private class Node<T> {
         public T item;
         public Node<T> next;
         public Node<T> last;
@@ -22,15 +22,6 @@ public class LinkedListDeque<T> {
         size = 0;
     }
 
-    public LinkedListDeque(LinkedListDeque<T> other) {
-        root = new Node<T>(null);
-        root.next = root;
-        root.last = root;
-        size = 0;
-        for(int i = 0; i < other.size(); ++i) {
-            addLast(other.get(i));
-        }
-    }
     public void addFirst(T item) {
         Node<T> n = new Node<T>(item);
         n.next = root.next;
@@ -107,5 +98,22 @@ public class LinkedListDeque<T> {
 
     public T getRecursive(int index) {
         return getRecursive(index, root.next);
+    }
+    public boolean equal(LinkedListDeque<T> other) {
+        Node<T> r0 = root.next;
+        Node<T> r1 = other.root.next;
+        while(r0 != null && r1 != null) {
+            if(!r0.item.equals(r1.item)) {
+                return false;
+            }
+            r0 = r0.next;
+            r1 = r1.next;
+        }
+        return r0 == null && r1 == null;
+    }
+
+    // TODO
+    public java.util.Iterator<T> iterator() {
+        return null;
     }
 }
