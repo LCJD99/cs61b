@@ -5,9 +5,9 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     private Node<T> root;
 
     private class Node<T> {
-        public T item;
-        public Node<T> next;
-        public Node<T> last;
+        private T item;
+        private Node<T> next;
+        private Node<T> last;
         Node(T i) {
             item = i;
             next = null;
@@ -91,11 +91,11 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         return n.item;
     }
 
-    private T getRecursive(int index, Node<T> root) {
+    private T getRecursive(int index, Node<T> r) {
         if (index == 0) {
-            return root.item;
+            return r.item;
         } else {
-            return getRecursive(index - 1, root.next);
+            return getRecursive(index - 1, r.next);
         }
     }
 
