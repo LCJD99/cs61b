@@ -1,6 +1,6 @@
 package deque;
 
-public class ArrayDeque<T> implements Deque<T> {
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private int capacity;
     private Object[] array;
     private int first;
@@ -62,11 +62,11 @@ public class ArrayDeque<T> implements Deque<T> {
         if (size == 0) {
             return null;
         }
-        if (capacity > 8 && (size-1) * 4 < capacity) {
+        if (capacity > 8 && (size - 1) * 4 < capacity) {
             resize(capacity / 2);
         }
         T ret = (T) array[first];
-        first = (first + 1 ) % capacity;
+        first = (first + 1) % capacity;
         size--;
         return ret;
     }
@@ -76,7 +76,7 @@ public class ArrayDeque<T> implements Deque<T> {
         if (size == 0) {
             return null;
         }
-        if (capacity > 8 && (size-1) * 4 < capacity) {
+        if (capacity > 8 && (size - 1) * 4 < capacity) {
             resize(capacity / 2);
         }
         T ret = (T) array[(first + size - 1) % capacity];
@@ -89,8 +89,8 @@ public class ArrayDeque<T> implements Deque<T> {
         return (T) array[(first + index) % capacity];
     }
 
-    public boolean equal(Object o) {
-        if (o instanceof ArrayDeque){
+    public boolean equals(Object o) {
+        if (o instanceof ArrayDeque) {
             ArrayDeque<T> other = (ArrayDeque<T>) o;
             if (((ArrayDeque<T>) other).size() != size()) {
                 return false;

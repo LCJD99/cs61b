@@ -102,17 +102,22 @@ public class LinkedListDeque<T> implements Deque<T> {
     public T getRecursive(int index) {
         return getRecursive(index, root.next);
     }
-    public boolean equal(Object other) {
-        Node<T> r0 = root.next;
-        Node<T> r1 = ((LinkedListDeque<T>) other).root.next;
-        while (r0 != null && r1 != null) {
-            if (!r0.item.equals(r1.item)) {
-                return false;
+    public boolean equals(Object o) {
+        if (o instanceof LinkedListDeque) {
+            LinkedListDeque<T> other = (LinkedListDeque<T>) o;
+            Node<T> r0 = root.next;
+            Node<T> r1 = other.root.next;
+            while (r0 != null && r1 != null) {
+                if (!r0.item.equals(r1.item)) {
+                    return false;
+                }
+                r0 = r0.next;
+                r1 = r1.next;
             }
-            r0 = r0.next;
-            r1 = r1.next;
+            return r0 == null && r1 == null;
+        } else {
+            return false;
         }
-        return r0 == null && r1 == null;
     }
 
     // TODO

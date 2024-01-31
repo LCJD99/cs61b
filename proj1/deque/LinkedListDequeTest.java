@@ -126,6 +126,6 @@ public class LinkedListDequeTest {
         lld2.addFirst(1);
         lld1.addFirst(2);
         lld2.addFirst(2);
-        assertEquals("Should equal", true, lld1.equal(lld2));
+        assertEquals("Should equal", true, lld1.equals(lld2));
     }
 }

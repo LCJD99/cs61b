@@ -125,15 +125,15 @@ public class ArrayDequeTest {
         lld1.addFirst(2);
         lld2.addLast(2);
         lld2.addLast(1);
-        assertTrue(lld1.equal(lld2));
+        assertTrue(lld1.equals(lld2));
         lld1.removeFirst();
-        assertFalse(lld1.equal(lld2));
+        assertFalse(lld1.equals(lld2));
         lld2.removeFirst();
-        assertTrue(lld1.equal(lld2));
+        assertTrue(lld1.equals(lld2));
         for (int i = 0; i < 100; i++) {
             lld1.addLast(i);
             lld2.addLast(i);
         }
-        assertTrue(lld1.equal(lld2));
+        assertTrue(lld1.equals(lld2));
     }
 }
