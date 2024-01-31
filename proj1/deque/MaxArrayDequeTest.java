@@ -1,11 +1,12 @@
 package deque;
 
 import org.junit.Test;
+
+import java.util.Comparator;
+
 import static org.junit.Assert.*;
 
-
-/** Performs some basic linked list tests. */
-public class LinkedListDequeTest {
+public class MaxArrayDequeTest {
 
     @Test
     /** Adds a few things to the list, checking isEmpty() and size() are correct,
@@ -14,48 +15,48 @@ public class LinkedListDequeTest {
      * && is the "and" operation. */
     public void addIsEmptySizeTest() {
 
-        LinkedListDeque<String> lld1 = new LinkedListDeque<String>();
+        MaxArrayDeque<String> lld1 = new MaxArrayDeque<String>();
 
-		assertTrue("A newly initialized LLDeque should be empty", lld1.isEmpty());
-		lld1.addFirst("front");
+        assertTrue("A newly initialized LLDeque should be empty", lld1.isEmpty());
+        lld1.addFirst("front");
 
-		// The && operator is the same as "and" in Python.
-		// It's a binary operator that returns true if both arguments true, and false otherwise.
+        // The && operator is the same as "and" in Python.
+        // It's a binary operator that returns true if both arguments true, and false otherwise.
         assertEquals(1, lld1.size());
         assertFalse("lld1 should now contain 1 item", lld1.isEmpty());
 
-		lld1.addLast("middle");
-		assertEquals(2, lld1.size());
+        lld1.addLast("middle");
+        assertEquals(2, lld1.size());
 
-		lld1.addLast("back");
-		assertEquals(3, lld1.size());
+        lld1.addLast("back");
+        assertEquals(3, lld1.size());
 
-		System.out.println("Printing out deque: ");
-		lld1.printDeque();
+        System.out.println("Printing out deque: ");
+        lld1.printDeque();
     }
 
     @Test
     /** Adds an item, then removes an item, and ensures that dll is empty afterwards. */
     public void addRemoveTest() {
 
-        LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
-		// should be empty
-		assertTrue("lld1 should be empty upon initialization", lld1.isEmpty());
+        MaxArrayDeque<Integer> lld1 = new MaxArrayDeque<Integer>();
+        // should be empty
+        assertTrue("lld1 should be empty upon initialization", lld1.isEmpty());
 
-		lld1.addFirst(10);
-		// should not be empty
-		assertFalse("lld1 should contain 1 item", lld1.isEmpty());
+        lld1.addFirst(10);
+        // should not be empty
+        assertFalse("lld1 should contain 1 item", lld1.isEmpty());
 
-		lld1.removeFirst();
-		// should be empty
-		assertTrue("lld1 should be empty after removal", lld1.isEmpty());
+        lld1.removeFirst();
+        // should be empty
+        assertTrue("lld1 should be empty after removal", lld1.isEmpty());
     }
 
     @Test
     /* Tests removing from an empty deque */
     public void removeEmptyTest() {
 
-        LinkedListDeque<Integer> lld1 = new LinkedListDeque<>();
+        MaxArrayDeque<Integer> lld1 = new MaxArrayDeque<>();
         lld1.addFirst(3);
 
         lld1.removeLast();
@@ -72,12 +73,12 @@ public class LinkedListDequeTest {
     }
 
     @Test
-    /* Check if you can create LinkedListDeques with different parameterized types*/
+    /* Check if you can create MaxArrayDeques with different parameterized types*/
     public void multipleParamTest() {
 
-        LinkedListDeque<String>  lld1 = new LinkedListDeque<String>();
-        LinkedListDeque<Double>  lld2 = new LinkedListDeque<Double>();
-        LinkedListDeque<Boolean> lld3 = new LinkedListDeque<Boolean>();
+        MaxArrayDeque<String>  lld1 = new MaxArrayDeque<String>();
+        MaxArrayDeque<Double>  lld2 = new MaxArrayDeque<Double>();
+        MaxArrayDeque<Boolean> lld3 = new MaxArrayDeque<Boolean>();
 
         lld1.addFirst("string");
         lld2.addFirst(3.14159);
@@ -89,10 +90,10 @@ public class LinkedListDequeTest {
     }
 
     @Test
-    /* check if null is return when removing from an empty LinkedListDeque. */
+    /* check if null is return when removing from an empty MaxArrayDeque. */
     public void emptyNullReturnTest() {
 
-        LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
+        MaxArrayDeque<Integer> lld1 = new MaxArrayDeque<Integer>();
 
         boolean passed1 = false;
         boolean passed2 = false;
@@ -104,7 +105,7 @@ public class LinkedListDequeTest {
     /* Add large number of elements to deque; check if order is correct. */
     public void bigLLDequeTest() {
 
-        LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
+        MaxArrayDeque<Integer> lld1 = new MaxArrayDeque<Integer>();
         for (int i = 0; i < 1000000; i++) {
             lld1.addLast(i);
         }
@@ -118,14 +119,12 @@ public class LinkedListDequeTest {
         }
     }
 
-    // @Test
-    public void equalTest() {
-        LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
-        LinkedListDeque<Integer> lld2 = new LinkedListDeque<Integer>();
-        lld1.addFirst(1);
-        lld2.addFirst(1);
-        lld1.addFirst(2);
-        lld2.addFirst(2);
-        assertEquals("Should equal", true, lld1.equal(lld2));
+    @Test
+    public void MaxValueTest() {
+        MaxArrayDeque<Integer> lld1 = new MaxArrayDeque<Integer>();
+        for (int i = 0; i < 100; i++) {
+            lld1.addLast(i);
+        }
+        assertEquals("should have same value", 99, (double) lld1.max(Comparator.naturalOrder()), 0.0);
     }
 }

@@ -1,6 +1,6 @@
 package deque;
 
-public class LinkedListDeque<T> {
+public class LinkedListDeque<T> implements Deque<T> {
     private int size;
     private Node<T> root;
 
@@ -8,7 +8,7 @@ public class LinkedListDeque<T> {
         public T item;
         public Node<T> next;
         public Node<T> last;
-        public Node(T i) {
+        Node(T i) {
             item = i;
             next = null;
             last = null;
@@ -22,6 +22,7 @@ public class LinkedListDeque<T> {
         size = 0;
     }
 
+    @Override
     public void addFirst(T item) {
         Node<T> n = new Node<T>(item);
         n.next = root.next;
@@ -31,6 +32,7 @@ public class LinkedListDeque<T> {
         size++;
     }
 
+    @Override
     public void addLast(T item) {
         Node<T> n = new Node<T>(item);
         n.last = root.last;
@@ -40,24 +42,23 @@ public class LinkedListDeque<T> {
         size++;
     }
 
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
+    @Override
     public int size() {
         return size;
     }
 
+    @Override
     public void printDeque() {
         Node<T> n = root.next;
-        while(n != root){
+        while (n != root) {
             System.out.print(n.item + " ");
             n = n.next;
         }
     }
 
+    @Override
     public T removeFirst() {
-        if(size == 0) {
+        if (size == 0) {
             return null;
         }
         T ret = root.next.item;
@@ -67,8 +68,9 @@ public class LinkedListDeque<T> {
         return ret;
     }
 
+    @Override
     public T removeLast() {
-        if(size == 0) {
+        if (size == 0) {
             return null;
         }
         T ret = root.last.item;
@@ -78,10 +80,11 @@ public class LinkedListDeque<T> {
         return ret;
     }
 
+    @Override
     public T get(int index) {
         int k = 0;
         Node<T> n = root.next;
-        while(k < index) {
+        while (k < index) {
             n = n.next;
             k++;
         }
@@ -89,21 +92,21 @@ public class LinkedListDeque<T> {
     }
 
     private T getRecursive(int index, Node<T> root) {
-        if(index == 0) {
+        if (index == 0) {
             return root.item;
         } else {
-            return getRecursive(index-1, root.next);
+            return getRecursive(index - 1, root.next);
         }
     }
 
     public T getRecursive(int index) {
         return getRecursive(index, root.next);
     }
-    public boolean equal(LinkedListDeque<T> other) {
+    public boolean equal(Object other) {
         Node<T> r0 = root.next;
-        Node<T> r1 = other.root.next;
-        while(r0 != null && r1 != null) {
-            if(!r0.item.equals(r1.item)) {
+        Node<T> r1 = ((LinkedListDeque<T>) other).root.next;
+        while (r0 != null && r1 != null) {
+            if (!r0.item.equals(r1.item)) {
                 return false;
             }
             r0 = r0.next;
