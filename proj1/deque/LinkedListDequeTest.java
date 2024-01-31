@@ -118,7 +118,7 @@ public class LinkedListDequeTest {
         }
     }
 
-    // @Test
+     @Test
     public void equalTest() {
         LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
         LinkedListDeque<Integer> lld2 = new LinkedListDeque<Integer>();

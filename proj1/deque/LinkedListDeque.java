@@ -1,6 +1,6 @@
 package deque;
 
-public class LinkedListDeque<T> implements Deque<T> {
+public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     private int size;
     private Node<T> root;
 
@@ -107,20 +107,19 @@ public class LinkedListDeque<T> implements Deque<T> {
             LinkedListDeque<T> other = (LinkedListDeque<T>) o;
             Node<T> r0 = root.next;
             Node<T> r1 = other.root.next;
-            while (r0 != null && r1 != null) {
+            while (r0 != root && r1 != other.root) {
                 if (!r0.item.equals(r1.item)) {
                     return false;
                 }
                 r0 = r0.next;
                 r1 = r1.next;
             }
-            return r0 == null && r1 == null;
+            return r0 == root && r1 == other.root;
         } else {
             return false;
         }
     }
 
-    // TODO
     public java.util.Iterator<T> iterator() {
         return null;
     }

@@ -9,9 +9,6 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
         super();
         cmp = c;
     }
-    public boolean equal(Object o) {
-        return false;
-    }
     public T max() {
         return max(cmp);
     }
