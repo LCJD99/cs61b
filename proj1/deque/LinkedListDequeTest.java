@@ -128,4 +128,15 @@ public class LinkedListDequeTest {
         lld2.addFirst(2);
         assertEquals("Should equal", true, lld1.equals(lld2));
     }
+
+    @Test
+    public void IteratorTest() {
+        LinkedListDeque<Integer> lld = new LinkedListDeque<>();
+        for (int i = 0 ; i < 10 ; i++) {
+            lld.addLast(i);
+        }
+        for (Integer l : lld) {
+            System.out.println(l);
+        }
+    }
 }

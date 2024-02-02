@@ -1,5 +1,7 @@
 package deque;
 
+import java.util.Iterator;
+
 public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     private int size;
     private Node<T> root;
@@ -120,7 +122,27 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         }
     }
 
-    public java.util.Iterator<T> iterator() {
-        return null;
+    private class LinkedListDequeIterator implements Iterator<T> {
+        private Node<T> p;
+
+        public LinkedListDequeIterator() {
+            p = root.next;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return p != root;
+        }
+
+        @Override
+        public T next() {
+            T tmp = p.item;
+            p = p.next;
+            return tmp;
+        }
+    }
+
+    public Iterator<T> iterator() {
+        return new LinkedListDequeIterator();
     }
 }

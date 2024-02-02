@@ -136,4 +136,15 @@ public class ArrayDequeTest {
         }
         assertTrue(lld1.equals(lld2));
     }
+
+    @Test
+    public void IteratorTest() {
+        ArrayDeque<Integer> lld = new ArrayDeque<>();
+        for (int i = 0 ; i < 10 ; i++) {
+            lld.addLast(i);
+        }
+        for (Integer l : lld) {
+            System.out.println(l);
+        }
+    }
 }
